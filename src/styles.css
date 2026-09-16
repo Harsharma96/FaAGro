@@ -1,0 +1,93 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", sans-serif;
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight); --color-highlight-foreground: var(--highlight-foreground);
+  --color-surface: var(--surface); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius);
+}
+
+:root {
+  --radius: .5rem;
+  --background: oklch(.965 .024 84); --foreground: oklch(.27 .055 147);
+  --card: oklch(.99 .011 85); --card-foreground: oklch(.27 .055 147);
+  --primary: oklch(.32 .073 148); --primary-foreground: oklch(.98 .018 85);
+  --secondary: oklch(.91 .045 91); --secondary-foreground: oklch(.3 .065 147);
+  --muted: oklch(.93 .025 88); --muted-foreground: oklch(.5 .035 145);
+  --accent: oklch(.76 .155 82); --accent-foreground: oklch(.27 .06 147);
+  --highlight: oklch(.83 .16 87); --highlight-foreground: oklch(.27 .06 147);
+  --surface: oklch(.94 .031 91); --border: oklch(.84 .033 91); --input: oklch(.85 .03 91); --ring: oklch(.53 .105 145);
+  --hero-overlay: linear-gradient(90deg, oklch(.21 .065 148 / .9), oklch(.28 .07 148 / .55) 50%, oklch(.25 .05 148 / .1));
+  --reel-overlay: linear-gradient(to top, oklch(.19 .05 148 / .85), transparent 60%);
+  --contact-overlay: linear-gradient(90deg, oklch(.2 .06 148 / .94), oklch(.25 .06 148 / .65), transparent);
+  --shadow-card: 0 18px 50px -30px oklch(.22 .05 148 / .55);
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--foreground); letter-spacing: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+.bg-hero-overlay { background: var(--hero-overlay); }
+.bg-reel-overlay { background: var(--reel-overlay); }
+.bg-contact-overlay { background: var(--contact-overlay); }
+.section { padding-block: 4.5rem; }
+.eyebrow { color: var(--primary); font-size: .72rem; line-height: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; }
+.ticker-shell { overflow: hidden; }
+.ticker-track { display: flex; width: max-content; animation: ticker 28s linear infinite; }
+.ticker-set { display: flex; flex-shrink: 0; align-items: center; gap: 2.25rem; padding-inline: 1.125rem; letter-spacing: .08em; }
+.nav-link { color: color-mix(in oklab, var(--foreground) 70%, transparent); transition: color .2s; }
+.nav-link:hover { color: var(--foreground); }
+.icon-button { display: inline-grid; height: 2.65rem; width: 2.65rem; flex-shrink: 0; place-items: center; border: 1px solid var(--border); border-radius: 999px; background: var(--background); color: var(--primary); }
+.hero-image { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 1s ease, transform 6s ease; }
+.hero-image.is-active { opacity: 1; transform: scale(1); }
+.hero-dot { height: .5rem; width: .5rem; border-radius: 999px; background: color-mix(in oklab, var(--primary-foreground) 45%, transparent); transition: width .3s; }
+.hero-dot.is-active { width: 1.75rem; background: var(--highlight); }
+.hero-arrow { position: absolute; top: 50%; display: none; height: 2.75rem; width: 2.75rem; place-items: center; border: 1px solid color-mix(in oklab, var(--primary-foreground) 30%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--primary) 45%, transparent); color: var(--primary-foreground); backdrop-filter: blur(8px); }
+.cta-primary,.cta-yellow,.cta-whatsapp,.cta-ghost { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; gap: .5rem; border-radius: 999px; padding: .75rem 1.35rem; font-size: .875rem; font-weight: 700; transition: transform .2s, filter .2s; }
+.cta-primary,.cta-yellow { background: var(--accent); color: var(--accent-foreground); }
+.cta-whatsapp { background: oklch(.55 .15 145); color: var(--primary-foreground); }
+.cta-ghost { border: 1px solid color-mix(in oklab, var(--primary-foreground) 38%, transparent); background: color-mix(in oklab, var(--primary-foreground) 10%, transparent); color: var(--primary-foreground); backdrop-filter: blur(10px); }
+.cta-primary:hover,.cta-yellow:hover,.cta-whatsapp:hover,.cta-ghost:hover { transform: translateY(-2px); filter: brightness(1.04); }
+.scroll-row { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 1rem; }
+.scroll-row::-webkit-scrollbar { display: none; }
+.product-card { width: min(82vw, 310px); flex: 0 0 auto; scroll-snap-align: start; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow-card); }
+.badge { display: inline-flex; align-items: center; gap: .3rem; border-radius: 999px; background: color-mix(in oklab, var(--background) 90%, transparent); padding: .35rem .65rem; color: var(--primary); font-size: .65rem; font-weight: 700; text-transform: uppercase; backdrop-filter: blur(8px); }
+.button-outline,.button-solid { display: inline-flex; min-height: 2.65rem; align-items: center; justify-content: center; border-radius: 999px; font-size: .75rem; font-weight: 700; }
+.button-outline { border: 1px solid var(--border); color: var(--primary); }
+.button-solid { background: var(--primary); color: var(--primary-foreground); }
+.offer-panel { position: relative; border-radius: var(--radius); background: var(--primary); padding: 2rem; color: var(--primary-foreground); box-shadow: var(--shadow-card); }
+.offer-badge { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; background: var(--accent); padding: .5rem .8rem; color: var(--accent-foreground); font-size: .7rem; font-weight: 800; text-transform: uppercase; animation: pulse-soft 2.2s ease-in-out infinite; }
+.feature-check { display: flex; align-items: center; gap: .65rem; border-top: 1px solid var(--border); padding-top: .8rem; font-size: .9rem; font-weight: 600; color: var(--primary); }
+.reel-card { position: relative; aspect-ratio: 9/16; width: min(66vw, 265px); flex: 0 0 auto; scroll-snap-align: start; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-card); }
+.play-button { position: absolute; left: 50%; top: 50%; display: grid; height: 3.5rem; width: 3.5rem; transform: translate(-50%,-50%); place-items: center; border: 1px solid color-mix(in oklab, var(--primary-foreground) 45%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--primary) 40%, transparent); color: var(--primary-foreground); backdrop-filter: blur(10px); }
+.social-card { width: min(82vw, 320px); flex: 0 0 auto; scroll-snap-align: start; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow-card); }
+.trust-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); padding: 1.5rem; box-shadow: var(--shadow-card); transition: transform .25s; }
+.trust-card:hover { transform: translateY(-4px); }
+.feature-icon { display: grid; height: 3rem; width: 3rem; place-items: center; border-radius: 999px; background: var(--secondary); color: var(--primary); }
+.quality-badge { display: flex; min-width: 210px; flex: 1 0 auto; scroll-snap-align: start; align-items: center; justify-content: center; gap: .65rem; border-right: 1px solid var(--border); padding: 1.2rem; color: var(--primary); font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+.review-card { min-height: 330px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); padding: 2rem; box-shadow: var(--shadow-card); animation: slide-up .45s ease-out both; }
+.contact-panel { position: relative; min-height: 520px; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-card); }
+.footer-title { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .15em; color: var(--highlight); }
+.footer-icon { display: grid; height: 2.5rem; width: 2.5rem; place-items: center; border: 1px solid color-mix(in oklab, var(--primary-foreground) 20%, transparent); border-radius: 999px; }
+.mobile-actions { position: fixed; bottom: .75rem; left: .75rem; right: .75rem; z-index: 60; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); overflow: hidden; border: 1px solid color-mix(in oklab, var(--primary-foreground) 15%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--primary) 94%, transparent); padding: .35rem; box-shadow: 0 12px 30px oklch(.2 .05 148 / .35); backdrop-filter: blur(14px); }
+.mobile-actions a { display: flex; min-width: 0; min-height: 2.8rem; align-items: center; justify-content: center; gap: .35rem; border-radius: 999px; color: var(--primary-foreground); font-size: .72rem; font-weight: 700; }
+.mobile-actions a:nth-child(2) { background: oklch(.55 .15 145); }
+@keyframes ticker { to { transform: translateX(-50%); } }
+@keyframes slide-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-soft { 50% { transform: scale(1.04); box-shadow: 0 0 0 7px color-mix(in oklab, var(--accent) 15%, transparent); } }
+.animate-slide-up { animation: slide-up .65s ease-out both; }
+@media (min-width: 640px) { .offer-panel { padding: 3.5rem; } .section { padding-block: 6rem; } }
+@media (min-width: 768px) { .hero-arrow { display: grid; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .ticker-track,.offer-badge,.animate-slide-up { animation: none; } .hero-image { transition: opacity .2s; transform: none; } }
